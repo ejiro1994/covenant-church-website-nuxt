@@ -1,0 +1,68 @@
+/* Global styles for Covenant Church */
+:root {
+  --primary-color: #56B1B9;
+  --secondary-color: #CDEAEC;
+  --text-color: #333;
+  --background-color: #FFF;
+  --font-family: 'Arial', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.background-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content,
+footer, .footer {
+  position: relative;
+  z-index: 1;
+}
+
+/* For smooth scrolling with lenis */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Page transition effects */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+}
