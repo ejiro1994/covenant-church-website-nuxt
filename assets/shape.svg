@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	  viewBox="0 0 700 560" style="enable-background:new 0 0 700 560;" xml:space="preserve">
+	<defs>
+		<clipPath id="wt-tv-clip" clipPathUnits="objectBoundingBox">
+			<!-- Original path scaled down to [0-1] range -->
+			<path transform="scale(0.00142857 0.00178571)" 
+					d="M659.5,42.2C623.4,5.8,535.9,0,350,0S76.6,5.8,40.5,42.2C10.3,72.9,0,137.1,0,280s10.3,207.1,40.5,237.8C76.6,554.2,164.1,560,350,560s273.4-5.8,309.5-42.2C689.7,487.1,700,422.9,700,280S689.7,72.9,659.5,42.2z"/>
+		</clipPath>
+	</defs>
+	
+	<!-- Your original path (kept for backward compatibility) -->
+	<path d="M659.5,42.2C623.4,5.8,535.9,0,350,0S76.6,5.8,40.5,42.2C10.3,72.9,0,137.1,0,280s10.3,207.1,40.5,237.8C76.6,554.2,164.1,560,350,560s273.4-5.8,309.5-42.2C689.7,487.1,700,422.9,700,280S689.7,72.9,659.5,42.2z"/>
+</svg>

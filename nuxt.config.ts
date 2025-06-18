@@ -24,6 +24,7 @@ export default defineNuxtConfig({
   // CSS
   css: [
     // Global CSS file if needed
+    '~/assets/css/fonts.css'
   ],
   
   // Build configuration

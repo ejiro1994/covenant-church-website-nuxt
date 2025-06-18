@@ -50,7 +50,7 @@ float noise(vec2 p) {
 }
 
 void main() {
-  float n = noise(vUv * 3.0 + uScroll + sin(uTime / 10.0));
+  float n = noise(vUv * 5.0 + uScroll + sin(uTime / 10.0));
   vec3 color = mix(uColor1, uColor2, n);
   gl_FragColor = vec4(color, 1.0);
 }`;
@@ -97,8 +97,10 @@ onMounted(() => {
     uniforms: {
       uTime: { value: 0 },
       uScroll: { value: 0 },
-      uColor1: { value: new Color('#CDEAEC') },
-      uColor2: { value: new Color('#56B1B9') },
+      // uColor1: { value: new Color('#0FACB2') },
+      // uColor2: { value: new Color('#5D32F7') },
+      uColor1: { value: new Color('#5D32F7') },
+      uColor2: { value: new Color('#0FACB2') },
       uResolution: { value: new Vec2(window.innerWidth, window.innerHeight) },
     },
   });

@@ -14,7 +14,7 @@
     <BulgeImageWithText src="/image-7.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
     <BulgeImageWithText src="/image-8.jpg" text="Discover" :radius=".9" :width="300" :height="400"/> -->
     <div class="content">
-    
+      <h1 class="hero-header">No More<br>Wilderness.<br>Welcome to<br>Promise 🎉</h1>
     </div>
     <Footer />
   </div>
@@ -30,14 +30,7 @@ let lenis: any
 
 onMounted(() => {
   lenis = new Lenis({
-    duration: 1.2,
-    easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    mouseMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
+    lerp: 0.08, // smoothness
     infinite: false,
   })
 
@@ -57,6 +50,14 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.hero-header {
+  font-family: 'MyCustomFont';
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 10rem 0 1rem 2rem;
+  text-align: left;
+  color: #fff;
+}
 .content {
   height: 200vh;
   position: relative;
