@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar">
     <div class="navbar-logo">
-      <img src="/Covenant-White-Logo.svg" alt="Logo" />
+      <object type="image/svg+xml" data="/Covenant-White-Logo.svg" class="logo-svg">Logo</object>
     </div>
     <button class="menu-btn" aria-label="Open menu">
       <img src="/menu-icon-white.svg" alt="Menu" />
@@ -35,13 +35,13 @@
   align-items: center;
   height: 100%;
 }
-.navbar-logo img {
+.navbar-logo .logo-svg {
   height: 40px;
   width: auto;
 }
 
 @media (max-width: 768px) {
-  .navbar-logo img {
+  .navbar-logo .logo-svg {
     height: 40px;
   }
 }
