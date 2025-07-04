@@ -24,6 +24,8 @@ let currentColor1 = props.color1;
 let currentColor2 = props.color2;
 
 const scrollY = ref(0);
+let lastScrollY = 0;
+let scrollDirection: 'down' | 'up' = 'down';
 
 // GLSL shaders as string literals
 const vertex = `
@@ -109,7 +111,8 @@ function transitionToWhite(color: string, speed: number): string {
 }
 
 function animate(t = 0) {
-  const lerpSpeed = 0.08;
+  // Slower for down, faster for up
+  const lerpSpeed = scrollDirection === 'down' ? 0.08 : 0.25;
 
   // --- Color1 ---
   if (isWhite(props.color1)) {
@@ -170,7 +173,16 @@ function animate(t = 0) {
 function onScroll() {
   const scrollTop = window.scrollY;
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  scrollY.value = docHeight > 0 ? scrollTop / docHeight : 0;
+  const normalizedScroll = docHeight > 0 ? scrollTop / docHeight : 0;
+
+  // Detect scroll direction
+  if (normalizedScroll > lastScrollY) {
+    scrollDirection = 'down';
+  } else if (normalizedScroll < lastScrollY) {
+    scrollDirection = 'up';
+  }
+  lastScrollY = normalizedScroll;
+  scrollY.value = normalizedScroll;
 }
 
 onMounted(() => {

@@ -49,11 +49,6 @@
   width: auto;
 }
 
-@media (max-width: 768px) {
-  .navbar-logo .logo-svg {
-    height: 40px;
-  }
-}
 .menu-btn {
   background: none;
   border: none;
@@ -65,7 +60,18 @@
   align-items: center;
   justify-content: center;
   padding: 0;
+  display: none;
 }
+
+@media (max-width: 768px) {
+  .menu-btn {
+    display: flex; /* Show only on mobile */
+  }
+  .navbar-logo .logo-svg {
+    height: 40px;
+  }
+}
+
 .menu-btn img {
   /* height: 28px; */
   width: 38px;

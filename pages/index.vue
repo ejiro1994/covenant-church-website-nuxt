@@ -28,7 +28,7 @@ const bgColor2 = ref('#0FACB2')
 import chroma from 'chroma-js'
 
 function handleScroll() {
-  if (window.scrollY > 500) {
+  if (window.scrollY > 300) {
     // Use white as the target color
     bgColor1.value = '#FFFFFF';
     bgColor2.value = '#FFFFFF';
