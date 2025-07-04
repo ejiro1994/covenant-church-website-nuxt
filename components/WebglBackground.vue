@@ -175,7 +175,7 @@ function onScroll() {
   const docHeight = document.documentElement.scrollHeight - window.innerHeight;
   const normalizedScroll = docHeight > 0 ? scrollTop / docHeight : 0;
 
-  // Detect scroll direction
+  // Detect scroll direction/
   if (normalizedScroll > lastScrollY) {
     scrollDirection = 'down';
   } else if (normalizedScroll < lastScrollY) {
