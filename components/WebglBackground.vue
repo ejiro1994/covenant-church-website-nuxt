@@ -83,11 +83,37 @@ function resize() {
   program.uniforms.uResolution.value = new Vec2(w, h);
 }
 
+function isWhite(hex: string) {
+  // Tolerate rounding errors by using a luminance threshold
+  return chroma(hex).luminance() > 0.99;
+}
+
+function lerpRGB(a: string, b: string, t: number) {
+  const ca = chroma(a).rgb();
+  const cb = chroma(b).rgb();
+  return chroma.rgb(
+    ca[0] + (cb[0] - ca[0]) * t,
+    ca[1] + (cb[1] - ca[1]) * t,
+    ca[2] + (cb[2] - ca[2]) * t
+  ).hex();
+}
+
 function animate(t = 0) {
-  // Smoothly interpolate colors in HSL space using chroma-js
-  const lerpSpeed = 0.08; // Lower = slower, higher = faster
-  currentColor1 = chroma(currentColor1).mix(props.color1, lerpSpeed, 'lab').hex();
-  currentColor2 = chroma(currentColor2).mix(props.color2, lerpSpeed, 'lab').hex();
+  const lerpSpeed = 0.08;
+
+  // --- Color1 ---
+  if (isWhite(props.color1) || isWhite(currentColor1)) {
+    currentColor1 = lerpRGB(currentColor1, props.color1, lerpSpeed);
+  } else {
+    currentColor1 = chroma(currentColor1).mix(props.color1, lerpSpeed, 'lab').hex();
+  }
+
+  // --- Color2 ---
+  if (isWhite(props.color2) || isWhite(currentColor2)) {
+    currentColor2 = lerpRGB(currentColor2, props.color2, lerpSpeed);
+  } else {
+    currentColor2 = chroma(currentColor2).mix(props.color2, lerpSpeed, 'lab').hex();
+  }
 
   if (program) {
     // Convert to [0,1] rgb for WebGL
