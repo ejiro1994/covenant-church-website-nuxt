@@ -77,8 +77,10 @@
 }
 
 
-.hero-container:hover .hero-image-side {
-  transform: scale(1.10) translateX(-2%);
+@media (hover: hover) and (pointer: fine) and (min-width: 601px) {
+  .hero-container:hover .hero-image-side {
+    transform: scale(1.10) translateX(-2%);
+  }
 }
 
 .hero-content-side {
