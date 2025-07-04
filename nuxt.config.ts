@@ -15,7 +15,9 @@ export default defineNuxtConfig({
         { name: 'description', content: 'Covenant Church - Faith, Community, Purpose' },
       ],
       link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/Covenant-Color-Logo.svg' }
+        { rel: 'icon', type: 'image/svg+xml', href: '/Covenant-Color-Logo.svg' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300&display=swap' }
       ]
     },
     pageTransition: { name: 'page', mode: 'out-in' }

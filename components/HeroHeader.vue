@@ -4,7 +4,7 @@
       <div class="hero-image-side"></div>
       <div class="hero-content-side">
         <div class="headline">
-          <h1 class="hero-header">No More<br>Wilderness.<br>Welcome to<br>Promise 🎉</h1>
+          <h1 class="hero-header">No More<br>Wilderness.<br>Welcome to<br><span class="cormorant-font">Promise.</span> </h1>
         </div>
       </div>
     </section>
@@ -16,6 +16,9 @@
 </script>
 
 <style scoped>
+@import url('@/assets/fonts/cormorant-garamond.css');
+@import url('@/assets/fonts/roboto-flex.css');
+
 .hero-bg {
   width: 100vw;
   position: relative;
@@ -86,7 +89,8 @@
 .hero-content-side {
   flex: 1 1 50%;
   background: #fff;
-  color: #111;
+  color: #0C898E;
+  font-size: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,6 +102,7 @@
   width: 100%;
   max-width: 100%;
   overflow: hidden;
+  line-height: 1;
 }
 
 
@@ -198,4 +203,19 @@
     font-size: 1.4rem;
   }
 } */
+.cormorant-font {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  font-size: 3.5rem;
+  color: #EF8B1B;
+}
+
+.hero-header {
+  font-family: 'Roboto Flex', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
 </style>
