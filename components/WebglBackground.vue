@@ -88,29 +88,68 @@ function isWhite(hex: string) {
   return chroma(hex).luminance() > 0.99;
 }
 
-function lerpRGB(a: string, b: string, t: number) {
-  const ca = chroma(a).rgb();
-  const cb = chroma(b).rgb();
-  return chroma.rgb(
-    ca[0] + (cb[0] - ca[0]) * t,
-    ca[1] + (cb[1] - ca[1]) * t,
-    ca[2] + (cb[2] - ca[2]) * t
-  ).hex();
+// Special transition function to white that avoids red tint
+function transitionToWhite(color: string, speed: number): string {
+  // First step: desaturate (reduce saturation while keeping hue)
+  // Second step: increase brightness
+  const c = chroma(color);
+  const hsl = c.hsl();
+  
+  // If already very bright, just go straight to white
+  if (hsl[2] > 0.95) return '#FFFFFF';
+  
+  // First desaturate (reduce saturation by percentage of speed)
+  const newSaturation = Math.max(0, hsl[1] - speed * 1.5);
+  
+  // Then increase lightness
+  const newLightness = Math.min(1, hsl[2] + speed * 0.5);
+  
+  // Create new color with same hue, but modified saturation and lightness
+  return chroma.hsl(hsl[0], newSaturation, newLightness).hex();
 }
 
 function animate(t = 0) {
   const lerpSpeed = 0.08;
 
   // --- Color1 ---
-  if (isWhite(props.color1) || isWhite(currentColor1)) {
-    currentColor1 = lerpRGB(currentColor1, props.color1, lerpSpeed);
+  if (isWhite(props.color1)) {
+    // Special transition to white that avoids red tint
+    currentColor1 = transitionToWhite(currentColor1, lerpSpeed);
+  } else if (isWhite(currentColor1)) {
+    // Coming from white back to color
+    // First increase saturation, then change hue
+    const targetHsl = chroma(props.color1).hsl();
+    const currentHsl = chroma(currentColor1).hsl();
+    const newSaturation = Math.min(targetHsl[1], currentHsl[1] + lerpSpeed * 1.5);
+    
+    // If saturation is high enough, also adjust hue
+    let newHue = currentHsl[0];
+    if (newSaturation > 0.2) {
+      newHue = currentHsl[0] + (targetHsl[0] - currentHsl[0]) * lerpSpeed;
+    }
+    
+    currentColor1 = chroma.hsl(newHue, newSaturation, 
+                              currentHsl[2] - lerpSpeed * 0.5).hex();
   } else {
+    // Normal color-to-color transition
     currentColor1 = chroma(currentColor1).mix(props.color1, lerpSpeed, 'lab').hex();
   }
 
   // --- Color2 ---
-  if (isWhite(props.color2) || isWhite(currentColor2)) {
-    currentColor2 = lerpRGB(currentColor2, props.color2, lerpSpeed);
+  if (isWhite(props.color2)) {
+    currentColor2 = transitionToWhite(currentColor2, lerpSpeed);
+  } else if (isWhite(currentColor2)) {
+    const targetHsl = chroma(props.color2).hsl();
+    const currentHsl = chroma(currentColor2).hsl();
+    const newSaturation = Math.min(targetHsl[1], currentHsl[1] + lerpSpeed * 1.5);
+    
+    let newHue = currentHsl[0];
+    if (newSaturation > 0.2) {
+      newHue = currentHsl[0] + (targetHsl[0] - currentHsl[0]) * lerpSpeed;
+    }
+    
+    currentColor2 = chroma.hsl(newHue, newSaturation, 
+                              currentHsl[2] - lerpSpeed * 0.5).hex();
   } else {
     currentColor2 = chroma(currentColor2).mix(props.color2, lerpSpeed, 'lab').hex();
   }

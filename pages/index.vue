@@ -25,13 +25,16 @@ let lenis: any
 const bgColor1 = ref('#5D32F7')
 const bgColor2 = ref('#0FACB2')
 
+import chroma from 'chroma-js'
+
 function handleScroll() {
   if (window.scrollY > 500) {
-    bgColor1.value = '#FFFFFF'
-    bgColor2.value = '#FFFFFF' // Example: set to red when scrolled
+    // Use white as the target color
+    bgColor1.value = '#FFFFFF';
+    bgColor2.value = '#FFFFFF';
   } else {
     bgColor1.value = '#5D32F7'
-    bgColor2.value = '#0FACB2' // Default
+    bgColor2.value = '#0FACB2'
   }
 }
 
