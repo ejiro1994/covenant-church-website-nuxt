@@ -1,7 +1,15 @@
 <template>
   <nav class="navbar">
     <div class="navbar-logo">
-      <object type="image/svg+xml" data="/Covenant-White-Logo.svg" class="logo-svg">Logo</object>
+      <NuxtLink to="/">
+        <object
+          type="image/svg+xml"
+          data="/Covenant-White-Logo.svg"
+          class="logo-svg"
+        >
+          Logo
+        </object>
+      </NuxtLink>
     </div>
     <button class="menu-btn" aria-label="Open menu">
       <img src="/menu-icon-white.svg" alt="Menu" />
@@ -16,24 +24,25 @@
 
 <style scoped>
 .navbar {
-  position: fixed;
-  top: 20px;
-  left: 0;
-  width: 100vw;
-  max-width: 100vw;
+  position: relative;
+  /* position: fixed; */
+  /* top: 8px; */
+  /* left: 0; */
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   /* background: rgba(255,255,255,0.95); */
   z-index: 10;
-  padding: 0 2rem;
 }
 .navbar-logo {
   display: flex;
   align-items: center;
   height: 100%;
+  /* margin-left: 1rem; */
 }
 .navbar-logo .logo-svg {
   height: 40px;
@@ -46,7 +55,6 @@
   }
 }
 .menu-btn {
-  display: none;
   background: none;
   border: none;
   outline: none;
@@ -62,5 +70,4 @@
   /* height: 28px; */
   width: 38px;
 }
-
 </style>

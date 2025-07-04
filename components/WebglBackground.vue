@@ -3,9 +3,25 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from 'vue';
+import { onMounted, onBeforeUnmount, ref, watch, defineProps } from 'vue';
+import chroma from 'chroma-js';
 // @ts-ignore
 import { Renderer, Program, Color, Mesh, Triangle, Vec2 } from 'ogl';
+
+const props = defineProps({
+  color1: {
+    type: String,
+    default: '#5D32F7',
+  },
+  color2: {
+    type: String,
+    default: '#0FACB2',
+  },
+});
+
+// Internal color state for smooth transition (as hex strings)
+let currentColor1 = props.color1;
+let currentColor2 = props.color2;
 
 const scrollY = ref(0);
 
@@ -68,7 +84,17 @@ function resize() {
 }
 
 function animate(t = 0) {
+  // Smoothly interpolate colors in HSL space using chroma-js
+  const lerpSpeed = 0.08; // Lower = slower, higher = faster
+  currentColor1 = chroma(currentColor1).mix(props.color1, lerpSpeed, 'lab').hex();
+  currentColor2 = chroma(currentColor2).mix(props.color2, lerpSpeed, 'lab').hex();
+
   if (program) {
+    // Convert to [0,1] rgb for WebGL
+    const rgb1 = chroma(currentColor1).gl(); // returns [r,g,b,a] in 0-1
+    const rgb2 = chroma(currentColor2).gl();
+    program.uniforms.uColor1.value.set(rgb1[0], rgb1[1], rgb1[2]);
+    program.uniforms.uColor2.value.set(rgb2[0], rgb2[1], rgb2[2]);
     program.uniforms.uTime.value = t * 0.001;
     program.uniforms.uScroll.value = scrollY.value * 2; // scale as in original
     renderer.render({ scene: mesh });
@@ -97,10 +123,8 @@ onMounted(() => {
     uniforms: {
       uTime: { value: 0 },
       uScroll: { value: 0 },
-      // uColor1: { value: new Color('#0FACB2') },
-      // uColor2: { value: new Color('#5D32F7') },
-      uColor1: { value: new Color('#5D32F7') },
-      uColor2: { value: new Color('#0FACB2') },
+      uColor1: { value: new Color(...chroma(currentColor1).gl().slice(0, 3)) },
+      uColor2: { value: new Color(...chroma(currentColor2).gl().slice(0, 3)) },
       uResolution: { value: new Vec2(window.innerWidth, window.innerHeight) },
     },
   });
@@ -112,6 +136,16 @@ onMounted(() => {
   window.addEventListener('resize', resize);
   window.addEventListener('scroll', onScroll);
   animate();
+
+  // Watch for color1 prop changes and update uColor1
+  watch(
+    () => props.color1,
+    (newVal) => {
+      if (program && program.uniforms && program.uniforms.uColor1) {
+        program.uniforms.uColor1.value = new Color(newVal);
+      }
+    }
+  );
 });
 
 onBeforeUnmount(() => {

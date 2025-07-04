@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
   
   // Development tools
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   
   // Optimization
   app: {

@@ -58,6 +58,28 @@ html.lenis {
 }
 
 /* Page transition effects */
+
+/* Main container for page content */
+.container {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* Footer should always be full width */
+footer, .footer {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.3s;

@@ -1,20 +1,13 @@
 <template>
   <div>
-    <Navbar />
-    <WebglBackground />
-    <!-- <div class="white-fade-overlay" ref="fadeOverlay"></div> -->
-    <!-- <div class="top-fade-overlay"></div> -->
-    <!-- <HeroSection /> -->
-    <!-- <BulgeImageWithText src="/image-1.png" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-2.webp" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-3.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-4.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-5.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-6.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-7.jpg" text="Discover" :radius=".9" :width="300" :height="400"/>
-    <BulgeImageWithText src="/image-8.jpg" text="Discover" :radius=".9" :width="300" :height="400"/> -->
-    <div class="content">
-      <h1 class="hero-header">No More<br>Wilderness.<br>Welcome to<br>Promise 🎉</h1>
+    <WebglBackground :color1="bgColor1" :color2="bgColor2" />
+    <div class="container">
+      <Navbar />
+      <div class="content">
+        <!-- <h1 class="hero-header">No More<br>Wilderness.<br>Welcome to<br>Promise 🎉</h1> -->
+         
+        <HeroHeader />
+      </div>
     </div>
     <Footer />
   </div>
@@ -28,6 +21,20 @@ import Lenis from '@studio-freight/lenis'
 const fadeOverlay = ref<HTMLElement | null>(null)
 let lenis: any
 
+// Track scroll for background color
+const bgColor1 = ref('#5D32F7')
+const bgColor2 = ref('#0FACB2')
+
+function handleScroll() {
+  if (window.scrollY > 500) {
+    bgColor1.value = '#FFFFFF'
+    bgColor2.value = '#FFFFFF' // Example: set to red when scrolled
+  } else {
+    bgColor1.value = '#5D32F7'
+    bgColor2.value = '#0FACB2' // Default
+  }
+}
+
 onMounted(() => {
   lenis = new Lenis({
     lerp: 0.08, // smoothness
@@ -40,12 +47,15 @@ onMounted(() => {
   }
 
   requestAnimationFrame(raf)
+
+  window.addEventListener('scroll', handleScroll)
 })
 
 onBeforeUnmount(() => {
   if (lenis) {
     lenis.destroy()
   }
+  window.removeEventListener('scroll', handleScroll)
 })
 </script>
 
@@ -59,6 +69,7 @@ onBeforeUnmount(() => {
   color: #fff;
 }
 .content {
+  /* margin-top: 10px; */
   height: 200vh;
   position: relative;
   z-index: 1;
