@@ -14,7 +14,13 @@
     <button class="menu-btn" aria-label="Open menu">
       <img src="/menu-icon-white.svg" alt="Menu" />
     </button>
-    <!-- Add nav links here if needed -->
+    <ul class="nav-links">
+      <li><NuxtLink to="/">HOME</NuxtLink></li>
+      <li><NuxtLink to="/about">ABOUT</NuxtLink></li>
+      <li><NuxtLink to="/phases">PHASES</NuxtLink></li>
+      <li><NuxtLink to="/give">GIVE</NuxtLink></li>
+      <li><NuxtLink to="/visit">VISIT</NuxtLink></li>
+    </ul>
   </nav>
 </template>
 
@@ -23,7 +29,21 @@
 </script>
 
 <style scoped>
+@font-face {
+  font-family: 'Grava SemiBold';
+  src: url('~/assets/fonts/grava/Grava SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+ 
+}
+
 .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* justify-content: flex-start; */
+  gap: 2.5rem;
+
   position: relative;
   /* position: fixed; */
   /* top: 8px; */
@@ -63,6 +83,44 @@
   display: none;
 }
 
+
+
+.menu-btn img {
+  /* height: 28px; */
+  width: 38px;
+}
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+.nav-links li a {
+  font-family: 'Grava SemiBold', Arial, sans-serif;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.2s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.nav-links li a:hover {
+  color: #ffd700;
+}
+/* @media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+} */
+
 @media (max-width: 768px) {
   .menu-btn {
     display: flex; /* Show only on mobile */
@@ -70,10 +128,8 @@
   .navbar-logo .logo-svg {
     height: 40px;
   }
-}
-
-.menu-btn img {
-  /* height: 28px; */
-  width: 38px;
+  .nav-links {
+    display: none;
+  }
 }
 </style>
